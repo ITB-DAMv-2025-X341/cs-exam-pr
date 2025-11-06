@@ -6,68 +6,63 @@ namespace Exam
     {
         public static void Main()
         {
-            const string MsgInput = "Enter a number (0 to exit): ";
+            const string MsgInput = "Enter the secret number: ";
             const string MsgOverflow = "Number entered too big.";
             const string MsgNotNumber = "Input is not a number";
             const string MsgNegative = "Number enteres is not positive";
             const string MsgError = "Unexpected error ocurred: {0}";
-            const string MsgDividers = "The divider numbers of {0} are: ";
-            const string MsgExit = "Exiting program";
+            const string MsgDoors = "{0} doors generated.";
+            const string MsgDoorsOpen = "You can open doors: ";
 
-            int number, inc, divisorInt;
+            int number;
             string numstr;
-            float divisor;
             bool valid = false;
+
+            var rand = new Random();
+
             number = 0;
             do
             {
-                do
-                {
-                    Console.Write(MsgInput);
-                    numstr = Console.ReadLine();
+                Console.Write(MsgInput);
+                numstr = Console.ReadLine();
 
-                    try
-                    {
-                        number = int.Parse(numstr);
-                        if (number < 0)
-                        {
-                            Console.WriteLine(MsgNegative);
-                        } else
-                        {
-                            valid = true;
-                        }
-                    }
-                    catch (OverflowException)
-                    {
-                        Console.WriteLine(MsgOverflow);
-                    }
-                    catch (FormatException)
-                    {
-                        Console.WriteLine(MsgNotNumber);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(MsgError, e);
-                    }
-                } while (!valid);
-                if (number != 0)
+                try
                 {
-                    Console.Write(MsgDividers, number);
-                    inc = 1;
-                    while (inc <= number)
+                    number = int.Parse(numstr);
+                    if (number < 0)
                     {
-                        divisor = (float)number / (float)inc;
-                        divisorInt = (int)divisor;
-                        if (divisor == divisorInt)
-                        {
-                            Console.Write(inc + " ");
-                        }
-                        inc++;
+                        Console.WriteLine(MsgNegative);
+                    } else
+                    {
+                        valid = true;
                     }
-                    Console.WriteLine();
-                } 
-            } while (number != 0);
-            Console.WriteLine(MsgExit);
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine(MsgOverflow);
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine(MsgNotNumber);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(MsgError, e);
+                }
+            } while (!valid);
+
+            int door = rand.Next(5, 16);
+            Console.WriteLine(MsgDoors, door);
+            Console.Write(MsgDoorsOpen);
+            for (int i = 1; i <= door; i++)
+            {
+                float divisionf = (float)i / (float)number;
+                int divisionint = (int)divisionf;
+                if (divisionf == divisionint)
+                {
+                    Console.Write(i + " ");
+                }
+            }
         }
     }
 }
