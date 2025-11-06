@@ -6,49 +6,38 @@ namespace Exam
     {
         public static void Main()
         {
-            const string MsgStart = "Starting game!";
-            const string MsgWin = "You win!";
-            const string MsgLose = "You lose.";
-            const string MsgFoundCoin = "You founded a coin. Coins: ";
-            const string MsgFoundTrap = "You falled into a trap. Lives: ";
+            const string MsgInput = "Enter a number (0 to exit): ";
+            const string MsgDividers = "The divider numbers of {0} are: ";
+            const string MsgExit = "Exiting program";
 
-            int coins = 0;
-            int lives = 3;
-
-            var rand = new Random();
-
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(MsgStart);
-            Console.ResetColor();
+            int number, inc, divisorInt;
+            string numstr;
+            float divisor;
             do
             {
-                Thread.Sleep(1000);
-                if (rand.Next(1, 3) == 1)
+                do
                 {
-                    lives--;
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(MsgFoundTrap + lives);
-                    Console.ResetColor();
-                }
-                else
+                    Console.Write(MsgInput);
+                    numstr = Console.ReadLine();
+                } while (!int.TryParse(numstr, out number));
+                if (number != 0)
                 {
-                    coins++;
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine(MsgFoundCoin + coins);
-                    Console.ResetColor();
-                }
-            } while (!(lives == 0 || coins == 5));
-            if (coins == 5)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine(MsgWin);
-                Console.ResetColor();
-            } else
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine(MsgLose);
-                Console.ResetColor();
-            }
+                    Console.Write(MsgDividers, number);
+                    inc = 1;
+                    while (inc <= number)
+                    {
+                        divisor = (float)number / (float)inc;
+                        divisorInt = (int)divisor;
+                        if (divisor == divisorInt)
+                        {
+                            Console.Write(inc + " ");
+                        }
+                        inc++;
+                    }
+                    Console.WriteLine();
+                } 
+            } while (number != 0);
+            Console.WriteLine(MsgExit);
         }
     }
 }
